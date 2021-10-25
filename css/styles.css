@@ -1,0 +1,154 @@
+/*
+  STRUCTURE ET STYLES COMMUNS
+*/
+html {
+  box-sizing: border-box;
+}
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+body, html {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  color: #cacaca;
+  font-family: 'Roboto', sans-serif;
+}
+
+a, a:visited, a:active, a:link {
+  color: inherit;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+a.actif {
+  font-weight: bold;
+}
+
+/*
+  ENTETE
+*/
+body > header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  height: 80px;
+  padding: 0 30px;
+  background-color: #141a2e;
+  white-space: nowrap;
+}
+
+header div.logo img {
+  display: inline-block;
+  margin-right: 200px;
+  width: 64px;
+  height: 64px;
+  opacity: 0.7;
+}
+
+header div.logo h1 {
+  display: inline-block;
+  position: relative;
+  top: 8px;
+  margin: 0;
+  padding-top: 0px;
+  font-family: 'Roboto', sans-serif;
+  font-size: 4.5em;
+  text-align: left;
+  color:rgba(36, 38, 59, 0.8);
+}
+
+header nav a {
+  display: inline-block;
+  position: relative;
+  top: 10px;
+  padding: 0 10px;
+}
+
+/*
+  CORPS DE LA PAGE
+*/
+body > section.principale {
+  background-color: rgb(36, 38, 59);
+  padding: 50px 150px;
+  display: flex;
+  justify-content: space-around;
+}
+
+body > section.principale h1 {
+  font-size: 3.25em;
+}
+
+body > section.principale h3 {
+  font-size: 1.5em;
+}
+
+body > section.principale ul {
+  list-style: lao;
+  font-size: 1.1em;
+}
+
+/*
+  MON COMPTE
+*/
+section.principale form fieldset {
+  border: 3px solid #141a2e;
+  border-radius: 2px;
+  margin: 10px 0;
+  padding: 20px;
+  font-size: 1.3em;
+}
+
+section.principale form input {
+  display: block;
+  width: 400px;
+  height: 50px;
+  border: 1px solid #141a2e;
+  border-radius: 2px;
+  margin: 15px 10px;
+  padding: 10px;
+  outline: none;
+  font-size: 1rem;
+  color: #141a2e;
+}
+
+section.principale form input[type="submit"] {
+  background-color: olivedrab;
+  color: #141a2e;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+section.principale form .actions-compte {
+  display: flex;
+  justify-content: space-between;
+  font-size: 1rem;
+  padding: 5px;
+}
+
+/*
+  PIED DE PAGE
+*/
+body > footer {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 30px;
+  margin: 10px 0;
+  color: #141a2e;
+  white-space: nowrap;
+  font-size: 0.9em;
+}
+
+body > footer .da {
+  font-size: 0.75em;
+}
+
+body > footer nav a {
+  display: inline-block;
+  padding: 0 5px;
+}
