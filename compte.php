@@ -1,3 +1,36 @@
+<?php
+    if(isset($_POST['courriel'])) {
+        // Tests :
+        // echo 'Formulaire soumit avec info suivante : ';
+        // echo '<br>';
+        // echo $_POST['courriel'];
+        // echo '<br>';
+        // echo $_POST['mdp'];
+        
+        // 1) Récupérer la saisie de l'utilisateur
+        $courriel = $_POST['courriel'];
+        $mdp = $_POST['mdp'];
+
+        // 2) Variable qui détermine si l'utilisateur est connecté ou pas
+        $utilConnecte = false;
+
+        // 3) Lire l'info sur TOUS les utilisateurs dans le fichier JSON
+        $utilsTexte = file_get_contents('data/utilisateurs.json');
+        $utilsTab = json_decode($utilsTexte, true);
+        //print_r($utilsTab);
+
+        // 4) Tester s'il y a un utilisateur ayant l'adresse de courriel donnée 
+        if(isset($utilsTab[$courriel])) {
+            // Tester si cet utilisateur a donné le bon mot de passe
+            $mdpEnc = $utilsTab[$courriel]['mdp'];
+            if($mdpEnc == hash('sha512', $mdp)) {
+                $utilConnecte = true;
+                echo "On est logué !!!!!";
+            }
+        }
+    }
+?>
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -21,7 +54,7 @@
         </nav>
     </header>
     <section class="principale">
-        <form action="">
+        <form action="compte.php" method="post">
             <fieldset>
                 <legend>Connexion à Lynx</legend>
                 <input type="text" name="courriel" placeholder="Adresse courriel">
