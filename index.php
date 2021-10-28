@@ -1,3 +1,11 @@
+<?php 
+    session_start(); 
+    // Vérifier s'il y a un paramètre d'URL dans la requête
+    if(isset($_GET['action']) && $_GET['action'] == 'lo') {
+        // Détruire la variable de session 'util'
+        unset($_SESSION['util']);
+    }
+?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -16,8 +24,12 @@
             <h1 class="logo">Lynx</h1>
         </div>
         <nav>
-            <a href="compte.php">Mon compte</a>
-            <a href="#">À propos</a>
+            <a href="compte.php">Mon compte
+                <?php if(isset($_SESSION['util'])):  ?>
+                    <i><?= $_SESSION['util']; ?></i>
+                    <a href="compte.php">Déconnexion</a>
+                <?php endif; ?>
+            </a>
         </nav>
     </header>
     <section class="principale">

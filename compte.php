@@ -1,32 +1,35 @@
 <?php
+    // Demander à PHP de gérer la session d'utilisation
+    session_start();
+
+    // Vérifier s'il y a un paramètre d'URL dans la requête
+    if(isset($_GET['action']) && $_GET['action'] == 'lo') {
+        // Détruire la variable de session 'util'
+        unset($_SESSION['util']);
+    }
+
+    // 2) Si le formulaire est soumit
     if(isset($_POST['courriel'])) {
-        // Tests :
-        // echo 'Formulaire soumit avec info suivante : ';
-        // echo '<br>';
-        // echo $_POST['courriel'];
-        // echo '<br>';
-        // echo $_POST['mdp'];
-        
-        // 1) Récupérer la saisie de l'utilisateur
+        // 3) Récupérer la saisie de l'utilisateur
         $courriel = $_POST['courriel'];
         $mdp = $_POST['mdp'];
 
-        // 2) Variable qui détermine si l'utilisateur est connecté ou pas
-        $utilConnecte = false;
-
-        // 3) Lire l'info sur TOUS les utilisateurs dans le fichier JSON
+        // 4) Lire l'info sur TOUS les utilisateurs dans le fichier JSON
         $utilsTexte = file_get_contents('data/utilisateurs.json');
         $utilsTab = json_decode($utilsTexte, true);
         //print_r($utilsTab);
 
-        // 4) Tester s'il y a un utilisateur ayant l'adresse de courriel donnée 
-        if(isset($utilsTab[$courriel])) {
+        // 5) Tester s'il y a un utilisateur ayant l'adresse de courriel donnée 
+        // et si les mots de passe coincident
+        if(isset($utilsTab[$courriel]) 
+                && $utilsTab[$courriel]['mdp'] == hash('sha512', $mdp)) {
             // Tester si cet utilisateur a donné le bon mot de passe
-            $mdpEnc = $utilsTab[$courriel]['mdp'];
-            if($mdpEnc == hash('sha512', $mdp)) {
-                $utilConnecte = true;
-                echo "On est logué !!!!!";
-            }
+            // Conserver cette information dans la session d'utilisateur
+            $_SESSION['util'] = $courriel;
+        }
+        else {
+            //echo "Échec de la connexion";
+            $erreurConnexion = true;
         }
     }
 ?>
@@ -49,23 +52,34 @@
             <h1 class="logo">Lynx</h1>
         </div>
         <nav>
-            <a href="compte.php" class="actif">Mon compte</a>
-            <a href="#">À propos</a>
+            <a href="compte.php" class="actif">Mon compte
+                <?php if(isset($_SESSION['util'])):  ?>
+                    <i><?= $_SESSION['util']; ?></i>
+                    <a href="compte.php?action=lo">Déconnexion</a>
+                <?php endif; ?>
+            </a>
         </nav>
     </header>
     <section class="principale">
-        <form action="compte.php" method="post">
-            <fieldset>
-                <legend>Connexion à Lynx</legend>
-                <input type="text" name="courriel" placeholder="Adresse courriel">
-                <input type="password" name="mdp" id="mdp" placeholder="Mot de passe">
-                <input type="submit" value="Se connecter">
-            </fieldset>
-            <div class="actions-compte">
-                <a href="#">Mot de passe oublié ?</a>
-                <a href="#">Nouveau compte</a>
-            </div>
-        </form>
+        <?php if(!isset($_SESSION['util'])) {  ?>    
+            <form action="compte.php" method="post">
+                <fieldset>
+                    <legend>Connexion à Lynx</legend>
+                    <input type="text" name="courriel" placeholder="Adresse courriel">
+                    <input type="password" name="mdp" id="mdp" placeholder="Mot de passe">
+                    <input type="submit" value="Se connecter">
+                    <?php if(isset($erreurConnexion)) : ?>
+                    <div class="erreur-cnx">Erreur de connexion : réessayez!</div>
+                    <?php endif; ?>
+                </fieldset>
+                <div class="actions-compte">
+                    <a href="#">Mot de passe oublié ?</a>
+                    <a href="#">Nouveau compte</a>
+                </div>
+            </form>
+        <?php } else { ?>
+            <h2>Mes investissements</h2>
+        <?php } ?>
     </section>
     <footer>
         <div class="da">&copy;2021 Lynx. Tous droits réservés.</div>
