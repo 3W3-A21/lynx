@@ -131,6 +131,15 @@ section.principale form .actions-compte {
   padding: 5px;
 }
 
+.erreur-cnx {
+  background-color: rgb(139, 6, 6);
+  padding: 5px;
+  margin: 10px;
+  text-align: center;
+  font-size: 0.8em;
+}
+
+
 /*
   PIED DE PAGE
 */
