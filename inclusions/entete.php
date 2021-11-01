@@ -1,4 +1,9 @@
 <?php
+/**
+ * Gestion des utilisateurs
+ * 
+ */
+
 // Demander à PHP de gérer la session d'utilisation
 session_start();
 
@@ -31,6 +36,13 @@ if(isset($_POST['courriel'])) {
         $erreurConnexion = true;
     }
 }
+
+/********** FIN - Gestion des utilisateurs */
+
+/**
+ * Internationalisation
+ * 
+ */
 
 // Langues disponibles
 $languesDisponibles = [];
@@ -65,6 +77,8 @@ if(isset($_GET['langue']) && in_array($_GET['langue'], $languesDisponibles)) {
 
 // D - On est enfin prêt à charger le fichier contenant les textes dans langue choisie
 include('textes/' . $langueChoisie . '-' . $nomsDesLangues[$langueChoisie] . '/i18n.txt.php');
+
+/********** FIN - Internationalisation */
 ?>
 <!DOCTYPE html>
 <html lang="fr">

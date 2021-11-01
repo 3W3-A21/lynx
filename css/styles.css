@@ -76,6 +76,9 @@ header nav a {
 body > section.principale {
   background-color: rgb(36, 38, 59);
   padding: 50px 150px;
+}
+
+section.principale div.formulairesUtilisateurs {
   display: flex;
   justify-content: space-around;
 }
@@ -134,7 +137,8 @@ section.principale form .actions-compte {
 .erreur-cnx {
   background-color: rgb(139, 6, 6);
   padding: 5px;
-  margin: 10px;
+  margin: 10px auto;
+  width: 400px;
   text-align: center;
   font-size: 0.8em;
 }
